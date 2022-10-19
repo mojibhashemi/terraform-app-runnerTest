@@ -24,10 +24,10 @@ jobs:
           aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 244530008913.dkr.ecr.eu-north-1.amazonaws.com
           rev=$(git rev-parse --short HEAD)
           docker build . -t testhello
-          docker tag testhello 244530008913.dkr.ecr.eu-west-1.amazonaws.com/muhatest-private:$rev
-          docker tag testhello 244530008913.dkr.ecr.eu-west-1.amazonaws.com/muhatest-private:latest
-          docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/muhatest-private:$rev
-          docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/muhatest-private:latest
+          docker tag testhello 244530008913.dkr.ecr.eu-north-1.amazonaws.com/muhatest-private:$rev
+          docker tag testhello 244530008913.dkr.ecr.eu-north-1.amazonaws.com/muhatest-private:latest
+          docker push 244530008913.dkr.ecr.eu-north-1.amazonaws.com/muhatest-private:$rev
+          docker push 244530008913.dkr.ecr.eu-north-1.amazonaws.com/muhatest-private:latest
 
   terraform:
     name: "Terraform"
@@ -64,4 +64,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -var="prefix=muhatest" -var="image=244530008913.dkr.ecr.eu-west-1.amazonaws.com/muhatest-private:latest" -auto-approve
+        run: terraform apply -var="prefix=muhatest" -var="image=244530008913.dkr.ecr.eu-north-1.amazonaws.com/muhatest-private:latest" -auto-approve
